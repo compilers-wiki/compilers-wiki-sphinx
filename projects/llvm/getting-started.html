@@ -1,0 +1,770 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Getting Started &#8212; Compilers Wiki  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'projects/llvm/getting-started';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Pass" href="llvm/pass.html" />
+    <link rel="prev" title="The LLVM Compiler Infrastructure" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Compilers Wiki</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../frontend/index.html">
+                        Frontend
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../optimization/index.html">
+                        Optimization
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Projects
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../frontend/index.html">
+                        Frontend
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../optimization/index.html">
+                        Optimization
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Projects
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">The LLVM Compiler Infrastructure</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llvm/pass.html">Pass</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Projects</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">The LLVM Compiler Infrastructure</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Getting Started</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h1>
+<p>In this section, we will briefly describe the basics and concepts related to compilers and introduce the LLVM project.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section assumes that you do not have any background
+in compilers and that you already have an understanding of programming
+and can write simple C code.</p>
+</div>
+<section id="what-is-a-compiler">
+<h2>What is a compiler<a class="headerlink" href="#what-is-a-compiler" title="Permalink to this heading">#</a></h2>
+<p>Conceptually, a compiler is a <strong>computer program</strong> that converts a programming language into another language.
+What we usually call a compiler generally converts a higher-level programming language such as C, C++, Fortran, etc.
+into a lower-level assembly language or machine code.</p>
+<p><strong>Note that a compiler is not an editor, much less an IDE.</strong></p>
+</section>
+<section id="llvm">
+<h2>LLVM<a class="headerlink" href="#llvm" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>LLVM as discussed here refers to all the
+subprojects contained in the LLVM monorepo, not to the LLVM core in the
+traditional sense.</p>
+</div>
+<p>LLVM is a set of <strong>reusable</strong> compiler toolchains.
+It currently contains at least the following subprojects.</p>
+<ul class="simple">
+<li><p>bolt</p></li>
+</ul>
+<p>A linked optimizer that optimizes the code layout of an application for improvements based on execution profiles collected by sampled profilers (such as the Linux perf tool).</p>
+<ul class="simple">
+<li><p>clang</p></li>
+</ul>
+<p>A GCC-compatible compiler front-end for the C family (C, C++, Objective C/C++, OpenCL, CUDA), known for its respectable compilation times and good diagnostic information.</p>
+<ul class="simple">
+<li><p>libcxx</p></li>
+</ul>
+<p>A new implementation of the C++ standard library, for C++11 and above.</p>
+<ul class="simple">
+<li><p>llvm</p></li>
+</ul>
+<p>The core of the LLVM project, including the LLVM intermediate language, various optimizations, and its corresponding command-line tools.</p>
+<ul class="simple">
+<li><p>mlir</p></li>
+</ul>
+<p>A general framework for writing various types of analysis and transformations in compilers and the intermediate representations they require.</p>
+<ul class="simple">
+<li><p>lld</p></li>
+</ul>
+<p>A high-performance, modular cross-platform linker.</p>
+</section>
+<section id="llvm-design-philosophy">
+<h2>LLVM design philosophy<a class="headerlink" href="#llvm-design-philosophy" title="Permalink to this heading">#</a></h2>
+<p>LLVM is modular, and the most important aspect of LLVM is that it is designed as a set of libraries, not as a single command-line compiler like GCC or an opaque virtual machine like the JVM or .NET virtual machines.</p>
+<p>As an example, the LLVM optimizer provides a large number of <a class="reference external" href="../pass/index.md">passes</a> that are compiled into one or more <code class="docutils literal notranslate"><span class="pre">.o</span></code> files and then built into a series of static or dynamic libraries.
+These libraries provide various parsing and transformation functions, and the passes are kept as independent as possible from each other, or if they depend on other parsing to do their job, their dependencies on other passes are explicitly declared.
+In contrast, during the actual optimization process of LLVM optimization, only the passes that are used are linked to the final application, not all of them.</p>
+<p>This straightforward design approach allows LLVM to provide a large number of features, some of which may be useful only to a specific audience, without affecting users of the library who just want to do other simple things.
+In contrast, traditional compiler optimizers are built as large amounts of interrelated code, making it difficult to split, reason about, and accelerate them.
+With LLVM, you can understand the individual optimizers without knowing how the whole system fits together.</p>
+</section>
+<section id="pipeline-of-a-compiler-taking-clang-llvm-as-an-example">
+<h2>Pipeline of a compiler (taking Clang/LLVM as an example)<a class="headerlink" href="#pipeline-of-a-compiler-taking-clang-llvm-as-an-example" title="Permalink to this heading">#</a></h2>
+<p>Generally speaking, compilers are divided into front-end, middle-end and back-end.</p>
+<p>The front-end is responsible for analyzing and processing the source code and generating intermediate code.</p>
+<section id="lexing">
+<h3>Lexing<a class="headerlink" href="#lexing" title="Permalink to this heading">#</a></h3>
+<p>In this stage, the compiler divides the source code into tokens and ignores invalid information such as spaces and blank lines.
+Each token usually contains the following information.</p>
+<ul class="simple">
+<li><p>Type.
+Common types such as identifiers, keywords, separators, operators, literals, etc.</p></li>
+<li><p>Value.
+The value that this token actually corresponds to.</p></li>
+<li><p>Location in the source code.
+Recording the location of the token in the original code can help us generate better diagnostic information.</p></li>
+</ul>
+<p>As an example:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">24</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For the above code, Clang will generate the following token:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>clang<span class="w"> </span>-c<span class="w"> </span>-Xclang<span class="w"> </span>-dump-tokens<span class="w"> </span>prog.c
+int<span class="w"> </span><span class="s1">&#39;int&#39;</span><span class="w">        </span><span class="o">[</span>StartOfLine<span class="o">]</span><span class="w">  </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:1:1&gt;
+identifier<span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="w">         </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:1:5&gt;
+l_paren<span class="w"> </span><span class="s1">&#39;(&#39;</span><span class="w">             </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:1:8&gt;
+int<span class="w"> </span><span class="s1">&#39;int&#39;</span><span class="w">               </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:1:9&gt;
+identifier<span class="w"> </span><span class="s1">&#39;i&#39;</span><span class="w">   </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:1:13&gt;
+r_paren<span class="w"> </span><span class="s1">&#39;)&#39;</span><span class="w">             </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:1:14&gt;
+l_brace<span class="w"> </span><span class="s1">&#39;{&#39;</span><span class="w">      </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:1:16&gt;
+<span class="k">return</span><span class="w"> </span><span class="s1">&#39;return&#39;</span><span class="w">  </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:1:18&gt;
+identifier<span class="w"> </span><span class="s1">&#39;i&#39;</span><span class="w">   </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:1:25&gt;
+plus<span class="w"> </span><span class="s1">&#39;+&#39;</span><span class="w">         </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:1:27&gt;
+numeric_constant<span class="w"> </span><span class="s1">&#39;42&#39;</span><span class="w">    </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:1:29&gt;
+semi<span class="w"> </span><span class="s1">&#39;;&#39;</span><span class="w">                </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:1:31&gt;
+r_brace<span class="w"> </span><span class="s1">&#39;}&#39;</span><span class="w">      </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:1:33&gt;
+int<span class="w"> </span><span class="s1">&#39;int&#39;</span><span class="w">        </span><span class="o">[</span>StartOfLine<span class="o">]</span><span class="w">  </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:3:1&gt;
+identifier<span class="w"> </span><span class="s1">&#39;main&#39;</span><span class="w">        </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:3:5&gt;
+l_paren<span class="w"> </span><span class="s1">&#39;(&#39;</span><span class="w">             </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:3:9&gt;
+r_paren<span class="w"> </span><span class="s1">&#39;)&#39;</span><span class="w">             </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:3:10&gt;
+l_brace<span class="w"> </span><span class="s1">&#39;{&#39;</span><span class="w">      </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:3:12&gt;
+int<span class="w"> </span><span class="s1">&#39;int&#39;</span><span class="w">        </span><span class="o">[</span>StartOfLine<span class="o">]</span><span class="w"> </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w">   </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:4:3&gt;
+identifier<span class="w"> </span><span class="s1">&#39;x&#39;</span><span class="w">   </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:4:7&gt;
+equal<span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="w">        </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:4:9&gt;
+identifier<span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="w">         </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:4:11&gt;
+l_paren<span class="w"> </span><span class="s1">&#39;(&#39;</span><span class="w">             </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:4:14&gt;
+numeric_constant<span class="w"> </span><span class="s1">&#39;24&#39;</span><span class="w">           </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:4:15&gt;
+r_paren<span class="w"> </span><span class="s1">&#39;)&#39;</span><span class="w">             </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:4:17&gt;
+semi<span class="w"> </span><span class="s1">&#39;;&#39;</span><span class="w">                </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:4:18&gt;
+<span class="k">return</span><span class="w"> </span><span class="s1">&#39;return&#39;</span><span class="w">  </span><span class="o">[</span>StartOfLine<span class="o">]</span><span class="w"> </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w">   </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:5:3&gt;
+identifier<span class="w"> </span><span class="s1">&#39;x&#39;</span><span class="w">   </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:5:10&gt;
+minus<span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="w">        </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:5:12&gt;
+numeric_constant<span class="w"> </span><span class="s1">&#39;24&#39;</span><span class="w">    </span><span class="o">[</span>LeadingSpace<span class="o">]</span><span class="w"> </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:5:14&gt;
+semi<span class="w"> </span><span class="s1">&#39;;&#39;</span><span class="w">                </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:5:16&gt;
+r_brace<span class="w"> </span><span class="s1">&#39;}&#39;</span><span class="w">      </span><span class="o">[</span>StartOfLine<span class="o">]</span><span class="w">  </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:6:1&gt;
+eof<span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">          </span><span class="nv">Loc</span><span class="o">=</span>&lt;prog.c:6:2&gt;
+</pre></div>
+</div>
+</section>
+<section id="parsing">
+<h3>Parsing<a class="headerlink" href="#parsing" title="Permalink to this heading">#</a></h3>
+<p>In this stage, the compiler converts the linear token stream into an Abstract Syntax Tree with specific syntax rules.
+The compiler also throws a diagnostic at this stage if there is an error in the syntax parsing.</p>
+<p>For the preceding code, the syntax tree generated by Clang can be viewed with the following command.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>clang<span class="w"> </span>-Xclang<span class="w"> </span>-ast-dump<span class="w"> </span>-fsyntax-only<span class="w"> </span>prog.c
+TranslationUnitDecl<span class="w"> </span>0x820688<span class="w"> </span><span class="s">&lt;&lt;invalid sloc&gt;&gt; &lt;invalid</span><span class="w"> </span>sloc&gt;
+<span class="p">|</span>-FunctionDecl<span class="w"> </span>0x877270<span class="w"> </span>&lt;prog.c:1:1,<span class="w"> </span>col:33&gt;<span class="w"> </span>col:5<span class="w"> </span>used<span class="w"> </span>foo<span class="w"> </span><span class="s1">&#39;int (int)&#39;</span>
+<span class="p">|</span><span class="w"> </span><span class="p">|</span>-ParmVarDecl<span class="w"> </span>0x8771a0<span class="w"> </span>&lt;col:9,<span class="w"> </span>col:13&gt;<span class="w"> </span>col:13<span class="w"> </span>used<span class="w"> </span>i<span class="w"> </span><span class="s1">&#39;int&#39;</span>
+<span class="p">|</span><span class="w"> </span><span class="sb">`</span>-CompoundStmt<span class="w"> </span>0x8773e8<span class="w"> </span>&lt;col:16,<span class="w"> </span>col:33&gt;
+<span class="p">|</span><span class="w">   </span><span class="sb">`</span>-ReturnStmt<span class="w"> </span>0x8773d8<span class="w"> </span>&lt;col:18,<span class="w"> </span>col:29&gt;
+<span class="p">|</span><span class="w">     </span><span class="sb">`</span>-BinaryOperator<span class="w"> </span>0x8773b8<span class="w"> </span>&lt;col:25,<span class="w"> </span>col:29&gt;<span class="w"> </span><span class="s1">&#39;int&#39;</span><span class="w"> </span><span class="s1">&#39;+&#39;</span>
+<span class="p">|</span><span class="w">       </span><span class="p">|</span>-ImplicitCastExpr<span class="w"> </span>0x8773a0<span class="w"> </span>&lt;col:25&gt;<span class="w"> </span><span class="s1">&#39;int&#39;</span><span class="w"> </span>&lt;LValueToRValue&gt;
+<span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w"> </span><span class="sb">`</span>-DeclRefExpr<span class="w"> </span>0x877360<span class="w"> </span>&lt;col:25&gt;<span class="w"> </span><span class="s1">&#39;int&#39;</span><span class="w"> </span>lvalue<span class="w"> </span>ParmVar<span class="w"> </span>0x8771a0<span class="w"> </span><span class="s1">&#39;i&#39;</span><span class="w"> </span><span class="s1">&#39;int&#39;</span>
+<span class="p">|</span><span class="w">       </span><span class="sb">`</span>-IntegerLiteral<span class="w"> </span>0x877380<span class="w"> </span>&lt;col:29&gt;<span class="w"> </span><span class="s1">&#39;int&#39;</span><span class="w"> </span><span class="m">42</span>
+<span class="sb">`</span>-FunctionDecl<span class="w"> </span>0x877450<span class="w"> </span>&lt;line:3:1,<span class="w"> </span>line:6:1&gt;<span class="w"> </span>line:3:5<span class="w"> </span>main<span class="w"> </span><span class="s1">&#39;int ()&#39;</span>
+<span class="w">  </span><span class="sb">`</span>-CompoundStmt<span class="w"> </span>0x8776b8<span class="w"> </span>&lt;col:12,<span class="w"> </span>line:6:1&gt;
+<span class="w">    </span><span class="p">|</span>-DeclStmt<span class="w"> </span>0x877618<span class="w"> </span>&lt;line:4:3,<span class="w"> </span>col:18&gt;
+<span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="sb">`</span>-VarDecl<span class="w"> </span>0x877508<span class="w"> </span>&lt;col:3,<span class="w"> </span>col:17&gt;<span class="w"> </span>col:7<span class="w"> </span>used<span class="w"> </span>x<span class="w"> </span><span class="s1">&#39;int&#39;</span><span class="w"> </span>cinit
+<span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="sb">`</span>-CallExpr<span class="w"> </span>0x8775f0<span class="w"> </span>&lt;col:11,<span class="w"> </span>col:17&gt;<span class="w"> </span><span class="s1">&#39;int&#39;</span>
+<span class="w">    </span><span class="p">|</span><span class="w">     </span><span class="p">|</span>-ImplicitCastExpr<span class="w"> </span>0x8775d8<span class="w"> </span>&lt;col:11&gt;<span class="w"> </span><span class="s1">&#39;int (*)(int)&#39;</span><span class="w"> </span>&lt;FunctionToPointerDecay&gt;
+<span class="w">    </span><span class="p">|</span><span class="w">     </span><span class="p">|</span><span class="w"> </span><span class="sb">`</span>-DeclRefExpr<span class="w"> </span>0x877570<span class="w"> </span>&lt;col:11&gt;<span class="w"> </span><span class="s1">&#39;int (int)&#39;</span><span class="w"> </span>Function<span class="w"> </span>0x877270<span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="w"> </span><span class="s1">&#39;int (int)&#39;</span>
+<span class="w">    </span><span class="p">|</span><span class="w">     </span><span class="sb">`</span>-IntegerLiteral<span class="w"> </span>0x877590<span class="w"> </span>&lt;col:15&gt;<span class="w"> </span><span class="s1">&#39;int&#39;</span><span class="w"> </span><span class="m">24</span>
+<span class="w">    </span><span class="sb">`</span>-ReturnStmt<span class="w"> </span>0x8776a8<span class="w"> </span>&lt;line:5:3,<span class="w"> </span>col:14&gt;
+<span class="w">      </span><span class="sb">`</span>-BinaryOperator<span class="w"> </span>0x877688<span class="w"> </span>&lt;col:10,<span class="w"> </span>col:14&gt;<span class="w"> </span><span class="s1">&#39;int&#39;</span><span class="w"> </span><span class="s1">&#39;-&#39;</span>
+<span class="w">        </span><span class="p">|</span>-ImplicitCastExpr<span class="w"> </span>0x877670<span class="w"> </span>&lt;col:10&gt;<span class="w"> </span><span class="s1">&#39;int&#39;</span><span class="w"> </span>&lt;LValueToRValue&gt;
+<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="sb">`</span>-DeclRefExpr<span class="w"> </span>0x877630<span class="w"> </span>&lt;col:10&gt;<span class="w"> </span><span class="s1">&#39;int&#39;</span><span class="w"> </span>lvalue<span class="w"> </span>Var<span class="w"> </span>0x877508<span class="w"> </span><span class="s1">&#39;x&#39;</span><span class="w"> </span><span class="s1">&#39;int&#39;</span>
+<span class="w">        </span><span class="sb">`</span>-IntegerLiteral<span class="w"> </span>0x877650<span class="w"> </span>&lt;col:14&gt;<span class="w"> </span><span class="s1">&#39;int&#39;</span><span class="w"> </span><span class="m">24</span>
+</pre></div>
+</div>
+</section>
+<section id="intermediate-code-generation">
+<h3>Intermediate code generation<a class="headerlink" href="#intermediate-code-generation" title="Permalink to this heading">#</a></h3>
+<p>At this stage, the compiler converts the abstract syntax tree into an intermediate language.</p>
+<p>As in the example above, Clang generates the following intermediate language (LLVM IR).</p>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="c">; ModuleID = &#39;prog.c&#39;</span>
+<span class="k">source_filename</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;prog.c&quot;</span>
+<span class="k">target</span><span class="w"> </span><span class="k">datalayout</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128&quot;</span>
+<span class="k">target</span><span class="w"> </span><span class="k">triple</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;x86_64-pc-linux-gnu&quot;</span>
+
+<span class="c">; Function Attrs: noinline nounwind optnone</span>
+<span class="k">define</span><span class="w"> </span><span class="k">dso_local</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@foo</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv">%i</span><span class="p">)</span><span class="w"> </span><span class="vg">#0</span><span class="w"> </span><span class="p">{</span>
+<span class="nl">entry:</span>
+<span class="w">  </span><span class="nv">%i.addr</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">alloca</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">  </span><span class="k">store</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv">%i</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv">%i.addr</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">  </span><span class="nv nv-Anonymous">%0</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">load</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv">%i.addr</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">  </span><span class="nv">%add</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="k">nsw</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="m">42</span>
+<span class="w">  </span><span class="k">ret</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv">%add</span>
+<span class="p">}</span>
+
+<span class="c">; Function Attrs: noinline nounwind optnone</span>
+<span class="k">define</span><span class="w"> </span><span class="k">dso_local</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@main</span><span class="p">()</span><span class="w"> </span><span class="vg">#0</span><span class="w"> </span><span class="p">{</span>
+<span class="nl">entry:</span>
+<span class="w">  </span><span class="nv">%retval</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">alloca</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">  </span><span class="nv">%x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">alloca</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">  </span><span class="k">store</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv">%retval</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">  </span><span class="nv">%call</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@foo</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="m">24</span><span class="p">)</span>
+<span class="w">  </span><span class="k">store</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv">%call</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv">%x</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">  </span><span class="nv nv-Anonymous">%0</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">load</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">*</span><span class="w"> </span><span class="nv">%x</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">  </span><span class="nv">%sub</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">sub</span><span class="w"> </span><span class="k">nsw</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="m">24</span>
+<span class="w">  </span><span class="k">ret</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv">%sub</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The middle-end is mainly responsible for analyzing and optimizing on the intermediate code to generate a more efficient intermediate code.
+In addition to the generic optimizations, the middle-end also contains those platform-specific optimizations.</p>
+<p>The specific responsibilities of the middle-end include:</p>
+<ul class="simple">
+<li><p>Analysis of the intermediate language, such as data flow analysis, alias analysis, etc.
+This phase is the basis for other optimizations performed by the compiler.</p></li>
+<li><p>Optimizing the intermediate language to convert its representation into a functionally equivalent but faster (or smaller) form.
+Common optimizations such as inline expansion, dead code elimination, constant propagation, loop conversion, etc.</p></li>
+</ul>
+<p>For example, we have this LLVM IR:</p>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@test</span><span class="p">(</span><span class="kt">ptr</span><span class="w"> </span><span class="nv">%Q</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="nv">%P</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nv">%DEAD</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">load</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="nv">%Q</span>
+<span class="w">  </span><span class="k">store</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv">%DEAD</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="nv">%P</span>
+<span class="w">  </span><span class="k">store</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="nv">%P</span>
+<span class="w">  </span><span class="k">ret</span><span class="w"> </span><span class="k">void</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We can use the command line tools provided by LLVM to optimize it in any way we want.
+By working with the pipeline character on Unix systems, we can be very flexible in achieving various effects:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>opt<span class="w"> </span>-passes<span class="o">=</span>dse<span class="w"> </span>prog.ll<span class="w"> </span><span class="p">|</span><span class="w"> </span>llvm-dis<span class="w"> </span>-f
+<span class="p">;</span><span class="w"> </span><span class="nv">ModuleID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&lt;stdin&gt;&#39;</span>
+<span class="nv">source_filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;prog.ll&quot;</span>
+
+define<span class="w"> </span>void<span class="w"> </span>@test<span class="o">(</span>ptr<span class="w"> </span>%Q,<span class="w"> </span>ptr<span class="w"> </span>%P<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>store<span class="w"> </span>i32<span class="w"> </span><span class="m">0</span>,<span class="w"> </span>ptr<span class="w"> </span>%P,<span class="w"> </span>align<span class="w"> </span><span class="m">4</span>
+<span class="w">  </span>ret<span class="w"> </span>void
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Here we use the <code class="docutils literal notranslate"><span class="pre">opt</span></code> utility provided by LLVM to apply a dead code elimination optimization to <code class="docutils literal notranslate"><span class="pre">prog.ll</span></code> alone.
+Since <code class="docutils literal notranslate"><span class="pre">opt</span></code> generates human-unreadable LLVM bytecode, we then use <code class="docutils literal notranslate"><span class="pre">llvm-dis</span></code> to convert it to LLVM IR.</p>
+<p>The backend needs to generate the intermediate code into machine code for the corresponding platform, as well as some CPU architecture details for optimization.</p>
+</section>
+</section>
+<section id="how-to-contribute-to-llvm">
+<h2>How to contribute to LLVM<a class="headerlink" href="#how-to-contribute-to-llvm" title="Permalink to this heading">#</a></h2>
+<section id="submitting-new-bugs">
+<h3>Submitting new bugs<a class="headerlink" href="#submitting-new-bugs" title="Permalink to this heading">#</a></h3>
+<p>For a long time LLVM has been using <a class="reference external" href="https://bugs.llvm.org/">Bugzilla</a> as its bug tracker, but has now moved to <a class="reference external" href="https://github.com/llvm/llvm-project/issues">Github issues</a>.
+You can find some easy-to-follow bugs by looking at <a class="reference external" href="https://github.com/llvm/llvm-project/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22">Good Frist Issue</a> in issue.</p>
+</section>
+<section id="submit-a-patch">
+<h3>Submit a patch<a class="headerlink" href="#submit-a-patch" title="Permalink to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that LLVM is interested in dropping Phabricator and moving to Github Pull Requests, as detailed in [^Code Review Process Update].</p>
+</div>
+<p>[^Code Review Process Update]: You can refer to <a class="reference external" href="https://discourse.llvm.org/t/code-review-process-update/63964">this post</a> to know more.</p>
+<p>Currently, the LLVM community still uses <a class="reference external" href="https://reviews.llvm.org/">Phabricator</a> to submit patches for code review.
+You can quickly sign up for a Phabricator account using a third-party account such as GitHub.</p>
+<p>You can submit your patches using the web page or Phabricator’s own command line tool, arcanist.
+Specific documentation can be found <a class="reference external" href="https://llvm.org/docs/Phabricator.html#phabricator-reviews">here</a>.
+The following is a simple example of using arcanist.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here we assume that you are using a Unix-like operating system and have Git installed and configured</p>
+</div>
+<p>First we need to install arcanist:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/phacility/arcanist.git
+</pre></div>
+</div>
+<p>Next, add it to the environment variables:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PATH</span><span class="s2">:/path/to/arcanist/bin/&quot;</span>
+</pre></div>
+</div>
+<p>Authorize the login.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>arc<span class="w"> </span>install-certificate
+</pre></div>
+</div>
+<p>When coding, we recommend using <code class="docutils literal notranslate"><span class="pre">amend</span></code> or manually <code class="docutils literal notranslate"><span class="pre">rebase</span></code> to compress our code into a <code class="docutils literal notranslate"><span class="pre">commit</span></code> for subsequent code review.</p>
+<p>Once our patch has been tested locally, it’s ready to be sent out.
+But before doing so, we must be careful to ensure that our patch conforms to the LLVM Coding Style with clang-format.</p>
+<p>We recommend using the official <a class="reference external" href="https://github.com/llvm/llvm-project/blob/main/clang/tools/clang-format/git-clang-format">git-clang-format</a> tool provided by LLVM for best results and to avoid accidental changes to other code.
+You can add the path of git-clang-format to the PATH directly.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clang-format<span class="w"> </span>HEAD~1
+</pre></div>
+</div>
+<p>Note that the format doesn’t commit automatically, so you need to.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>commit<span class="w"> </span>--amend<span class="w"> </span>-a
+</pre></div>
+</div>
+<p>After this is done, we can commit the patch to Phabricator using arc</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>arc<span class="w"> </span>diff
+</pre></div>
+</div>
+<p>arcanist will upload the latest commit to Phabricator, and when it succeeds, it will give us a link to our Revision.</p>
+<p>After the reviewer has looked at the code, he may give us some suggestions for changes, and we can continue to use arcanist to update our patches:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>arc<span class="w"> </span>diff<span class="w"> </span>--update<span class="w"> </span>DXXXXX
+</pre></div>
+</div>
+<p>where DXXXXX is our previous Revision, which we have to specify manually because arcanist doesn’t know the context.</p>
+</section>
+<section id="communicating-with-the-community">
+<h3>Communicating with the community<a class="headerlink" href="#communicating-with-the-community" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Mailing list</p></li>
+</ul>
+<p>Although the community has phased out mailing lists, we still recommend that you subscribe to the list of commit records for the corresponding subprojects, which helps to keep you informed of what is happening in the project.
+For example, if you want to contribute to Clang, you can subscribe to the list <a class="reference external" href="https://lists.llvm.org/mailman/listinfo/cfe-commits">cfe-commits</a>, and if you want to contribute to the LLVM core, you can subscribe to the list <a class="reference external" href="https://lists.llvm.org/mailman/listinfo/llvm-commits">llvm-commits</a>.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://discourse.llvm.org/">Discourse</a></p></li>
+<li><p><a class="reference external" href="https://discord.com/invite/xS7Z362">Discord</a></p></li>
+</ul>
+</section>
+<section id="related-links">
+<h3>Related links<a class="headerlink" href="#related-links" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://llvm.org/docs/GettingStarted.html">Getting Started with the LLVM
+System</a></p></li>
+<li><p><a class="reference external" href="https://www.aosabook.org/en/llvm.html">The Design Decisions of LLVM</a></p></li>
+<li><p><a class="reference external" href="https://llvm.org/docs/LangRef.html">LLVM Language Reference Manual</a></p></li>
+<li><p><a class="reference external" href="https://youtu.be/m8G_S5LwlTo">LLVM IR Tutorial - Phis, GEPs and other things, oh my!</a></p></li>
+<li><p><a class="reference external" href="https://youtu.be/J5xExRGaIIY">2019 LLVM Developers’ Meeting: E. Christopher &amp; J. Doerfert “Introduction to LLVM”</a></p></li>
+<li><p><a class="reference external" href="https://clang.llvm.org/docs/InternalsManual.html">“Clang” CFE Internals Manual</a></p></li>
+<li><p><a class="reference external" href="https://youtu.be/5kkMpJpIGYU">2019 LLVM Developers’ Meeting: S. Haastregt &amp; A. Stulova “An overview of Clang”</a></p></li>
+<li><p><a class="reference external" href="https://youtu.be/E6i8jmiy8MY">P. Goldsborough “clang-useful: Building useful tools with LLVM and clang for fun and profit”</a></p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">The LLVM Compiler Infrastructure</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="llvm/pass.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Pass</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-compiler">What is a compiler</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llvm">LLVM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llvm-design-philosophy">LLVM design philosophy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-of-a-compiler-taking-clang-llvm-as-an-example">Pipeline of a compiler (taking Clang/LLVM as an example)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lexing">Lexing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parsing">Parsing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intermediate-code-generation">Intermediate code generation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-contribute-to-llvm">How to contribute to LLVM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-new-bugs">Submitting new bugs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-a-patch">Submit a patch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#communicating-with-the-community">Communicating with the community</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#related-links">Related links</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/projects/llvm/getting-started.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

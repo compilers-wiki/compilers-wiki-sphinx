@@ -1,0 +1,603 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Pass &#8212; Compilers Wiki  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'projects/llvm/llvm/pass';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="prev" title="Getting Started" href="../getting-started.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Compilers Wiki</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../frontend/index.html">
+                        Frontend
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../optimization/index.html">
+                        Optimization
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../../index.html">
+                        Projects
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../frontend/index.html">
+                        Frontend
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../optimization/index.html">
+                        Optimization
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../../index.html">
+                        Projects
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">The LLVM Compiler Infrastructure</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Pass</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Projects</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">The LLVM Compiler Infrastructure</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Pass</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="pass">
+<h1>Pass<a class="headerlink" href="#pass" title="Permalink to this heading">#</a></h1>
+<p>The LLVM pass framework is an important part of the LLVM system, because LLVM passes are where the most interesting parts of the compiler exist.
+Passes perform transformations and optimizations that make up the compiler, they build the analysis results that are used by these transformations, and they are, above all, a structuring technique for compiler code.</p>
+<p>An LLVM pass can be regarded as a black box that takes LLVM IR as input and produces outputs depending on what kind the pass is.
+There’re two kinds of passes: <em>transformation pass</em> and <em>analysis pass</em>.
+For a transformation pass, it typically modifies the input IR and produces the transformed IR.
+Code generation passes that output SelectionDAG and machine IR from input LLVM IR are also transformation passes.
+For an analysis pass, it does not modify the input IR, but it looks into the IR and produces certain information that describes some properties about the input IR.
+Transformation passes typically implement compiler optimizations, program transformation, program instrumentation and other tasks.
+Analysis passes typically provide necessary information for the transformation passes to work.</p>
+<p>Real-world compilers usually rely on hundreds of passes that run one after another on the generated IR to complete optimization and code generation.
+This sequence of passes that run one after another is also called <em>the pipeline</em>.
+Note that different compiler configurations may end with different pipeline configurations, affecting the set of passes used and their execution order.</p>
+<p>Passes can have <em>dependencies</em>.
+For example, a transformation pass cannot work until its required analysis passes have been run.
+Also, some transformation passes can invalidate cached code properties analyzed by a previous analysis pass.
+LLVM uses <em>pass managers</em> to manage available passes and schedule the pass pipeline properly onto the input IR.
+Unfortunately, due to historical reasons, LLVM has two flavors of pass managers at now: the new pass manager and the legacy pass manager.
+This wiki primarily talks about the new pass manager, and the LLVM community is migrating to the new pass manager and deprecating the legacy one.</p>
+<section id="write-a-hello-world-pass">
+<h2>Write a Hello World Pass<a class="headerlink" href="#write-a-hello-world-pass" title="Permalink to this heading">#</a></h2>
+<p>In this section, we guide you through writing and running a simple pass that prints the names of all functions contained in the input IR module.</p>
+<section id="setup-the-build">
+<h3>Setup the Build<a class="headerlink" href="#setup-the-build" title="Permalink to this heading">#</a></h3>
+<p>Let’s assume that you have cloned the <a class="reference external" href="https://github.com/llvm/llvm-project">LLVM monorepo</a> and setup the build directory at <code class="docutils literal notranslate"><span class="pre">build/</span></code>  <a class="footnote-reference brackets" href="#id4" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, and the current working directory is the root of the monorepo.
+In this section, we will build the new pass in-tree, which means that the source tree of the new pass is directly embedded in the source tree of the LLVM monorepo.</p>
+<p>Create a <code class="docutils literal notranslate"><span class="pre">Hello.h</span></code> file under <code class="docutils literal notranslate"><span class="pre">llvm/include/llvm/Transforms/Utils/</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>llvm/include/llvm/Transforms/Utils/Hello.h
+</pre></div>
+</div>
+<p>Create a <code class="docutils literal notranslate"><span class="pre">Hello.cpp</span></code> file under <code class="docutils literal notranslate"><span class="pre">llvm/lib/Transforms/Utils/</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>llvm/lib/Transforms/Utils/Hello.cpp
+</pre></div>
+</div>
+<p>Modify <code class="docutils literal notranslate"><span class="pre">llvm/lib/Transforms/Utils/CMakeLists.txt</span></code> and add
+<code class="docutils literal notranslate"><span class="pre">Hello.cpp</span></code> to the <code class="docutils literal notranslate"><span class="pre">add_llvm_component_library</span></code> call:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">add_llvm_component_library</span><span class="p">(</span><span class="s">LLVMTransformUtils</span>
+<span class="w">    </span><span class="c"># Other files ...</span>
+<span class="w">    </span><span class="s">Hello.cpp</span>
+<span class="w">    </span><span class="c"># Other files and configurations ...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This step adds <code class="docutils literal notranslate"><span class="pre">Hello.cpp</span></code> to the LLVM build process.</p>
+</section>
+<section id="code-implementation">
+<h3>Code Implementation<a class="headerlink" href="#code-implementation" title="Permalink to this heading">#</a></h3>
+<p>Edit <code class="docutils literal notranslate"><span class="pre">Hello.h</span></code> as follows:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef LLVM_TRANSFORMS_HELLO_H</span>
+<span class="cp">#define LLVM_TRANSFORMS_HELLO_H</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;llvm/IR/PassManager.h&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">llvm</span><span class="w"> </span><span class="p">{</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">HelloPass</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">PassInfoMixin</span><span class="o">&lt;</span><span class="n">HelloPass</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">PreservedAnalyses</span><span class="w"> </span><span class="n">run</span><span class="p">(</span><span class="n">Function</span><span class="w"> </span><span class="o">&amp;</span><span class="n">F</span><span class="p">,</span><span class="w"> </span><span class="n">FunctionAnalysisManager</span><span class="w"> </span><span class="o">&amp;</span><span class="n">AM</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace llvm</span>
+
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+<p>Edit <code class="docutils literal notranslate"><span class="pre">Hello.cpp</span></code> as follows:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;llvm/Transforms/Utils/Hello.h&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">llvm</span><span class="w"> </span><span class="p">{</span>
+
+<span class="n">PreservedAnalyses</span><span class="w"> </span><span class="nf">HelloPass::run</span><span class="p">(</span><span class="n">Function</span><span class="w"> </span><span class="o">&amp;</span><span class="n">F</span><span class="p">,</span><span class="w"> </span><span class="n">FunctionAnalysisManager</span><span class="w"> </span><span class="o">&amp;</span><span class="n">AM</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">errs</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">F</span><span class="p">.</span><span class="n">getName</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">PreservedAnalyses</span><span class="o">::</span><span class="n">all</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace llvm</span>
+</pre></div>
+</div>
+<p>Yes! This is (almost) all you need to write a simple but working pass.
+Let’s break the code into pieces and see how it’s working.</p>
+<p>To create a pass in C++, you need to write a class that implements the software interface of a pass.
+Unlike traditional approaches which rely on class inheritance, the new pass manager uses <em>concepts-based polymorphism</em>  <a class="footnote-reference brackets" href="#id5" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>  <a class="footnote-reference brackets" href="#id6" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.
+<strong>As long as the class contains a ``run`` method that allows it to run on some piece of IR, it is a pass</strong>.
+No need to inherit the class from some base class and override some virtual functions.
+In the code above, our <code class="docutils literal notranslate"><span class="pre">HelloPass</span></code> class inherits from the <code class="docutils literal notranslate"><span class="pre">PassInfoMixin</span></code> class, which adds some boilerplate code to the pass.
+But the most important part is the <code class="docutils literal notranslate"><span class="pre">run</span></code> method that makes <code class="docutils literal notranslate"><span class="pre">HelloPass</span></code> a pass.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">run</span></code> method takes two parameters.
+The first parameter <code class="docutils literal notranslate"><span class="pre">F</span></code> is the IR function that the pass is running on.
+Note that <code class="docutils literal notranslate"><span class="pre">F</span></code> is passed via a non-const reference, indicating that we can modify the function (i.e. perform transformations) in the pass.
+The second parameter <code class="docutils literal notranslate"><span class="pre">AM</span></code> is a pass manager instance that links to analysis passes and provides function-level analysis information.</p>
+<p>Since the <code class="docutils literal notranslate"><span class="pre">run</span></code> method takes <code class="docutils literal notranslate"><span class="pre">Function</span></code> as input, <code class="docutils literal notranslate"><span class="pre">HelloPass</span></code> is a <strong>function pass</strong>.
+The pass manager schedules a function pass to run on every function in the input IR module.
+When the <code class="docutils literal notranslate"><span class="pre">HelloPass</span></code> gets executed, it writes the function’s name to the standard error and finishes.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">run</span></code> method returns a <code class="docutils literal notranslate"><span class="pre">PreservedAnalyses</span></code> object.
+This object contains information about whether the analysis performed by a previous analysis pass is still valid after this pass runs.
+The <code class="docutils literal notranslate"><span class="pre">run</span></code> method returns <code class="docutils literal notranslate"><span class="pre">PreservedAnalyses::all()</span></code> to indicate that all available analysis is still valid after running <code class="docutils literal notranslate"><span class="pre">HelloPass</span></code> (because it doesn’t modify the IR).</p>
+</section>
+<section id="register-the-pass">
+<h3>Register the Pass<a class="headerlink" href="#register-the-pass" title="Permalink to this heading">#</a></h3>
+<p>We have finished implementing the simple pass but we havn’t told LLVM pass manager about the existance of our new pass.
+We need to <em>register</em> our new pass into the pass manager.</p>
+<p>Edit <code class="docutils literal notranslate"><span class="pre">llvm/lib/Passes/PassRegistry.def</span></code> and add the following lines to it:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">FUNCTION_PASS</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">HelloPass</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Note the first argument to <code class="docutils literal notranslate"><span class="pre">FUNCTION_PASS</span></code> is the name of our new pass.</p>
+<p>Add the following <code class="docutils literal notranslate"><span class="pre">#include</span></code> to <code class="docutils literal notranslate"><span class="pre">llvm/lib/Passes/PassBuilder.cpp</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;llvm/Transforms/Utils/Hello.h&quot;</span>
+</pre></div>
+</div>
+<p>and it’s done. Now time for building and running our new pass.</p>
+</section>
+<section id="build-and-run">
+<h3>Build and Run<a class="headerlink" href="#build-and-run" title="Permalink to this heading">#</a></h3>
+<p>Go to the build directory and build <code class="docutils literal notranslate"><span class="pre">opt</span></code>, which is a dedicated tool for running passes over a piece of IR.
+After building <code class="docutils literal notranslate"><span class="pre">opt</span></code>, create a test IR file <code class="docutils literal notranslate"><span class="pre">test.ll</span></code> for testing:</p>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nv">%a</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">3</span>
+<span class="w">  </span><span class="k">ret</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv">%a</span>
+<span class="p">}</span>
+
+<span class="k">define</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@bar</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">ret</span><span class="w"> </span><span class="k">void</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then run our new pass with <code class="docutils literal notranslate"><span class="pre">opt</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>build/bin/opt<span class="w"> </span>-disable-output<span class="w"> </span>test.ll<span class="w"> </span>-passes<span class="o">=</span>hello
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">-passes=hello</span></code> option make <code class="docutils literal notranslate"><span class="pre">opt</span></code> run <code class="docutils literal notranslate"><span class="pre">HelloPass</span></code>.</p>
+<p>Expected output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span>
+<span class="n">bar</span>
+</pre></div>
+</div>
+<p>Congratulations! You have finished your LLVM pass!</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id4" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>For instructions on how to build LLVM from source, please refer to
+the <a class="reference external" href="https://llvm.org/docs/GettingStarted.html#getting-the-source-code-and-building-llvm">official
+documentation</a>.</p>
+</aside>
+<aside class="footnote brackets" id="id5" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>You can refer to <a class="reference external" href="https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/IR/PassManager.h#L27-L33">this
+comment</a>
+for a brief introduction to the concepts-based polymorphism used in
+the pass framework.</p>
+</aside>
+<aside class="footnote brackets" id="id6" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p>For a detailed introduction and discussion about concepts-based
+polymorphism, please refer to <a class="reference external" href="https://gist.github.com/GuillaumeDua/b0f5e3a40ce49468607dd62f7b7809b1">GuillaumeDua. Concept-based
+polymorphism in modern
+C++</a>.</p>
+</aside>
+</aside>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../getting-started.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Getting Started</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-hello-world-pass">Write a Hello World Pass</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-the-build">Setup the Build</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-implementation">Code Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#register-the-pass">Register the Pass</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-and-run">Build and Run</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../../../_sources/projects/llvm/llvm/pass.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

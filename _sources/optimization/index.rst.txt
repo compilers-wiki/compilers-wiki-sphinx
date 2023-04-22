@@ -1,0 +1,6 @@
+============
+Optimization
+============
+
+.. toctree::
+    vectorization/index
